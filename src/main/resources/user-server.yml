@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: user-service
+
+
+#error:
+#  path: /error
+
+server:
+  port: 2223
+
+
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:1111/eureka/
+    instance:
+      leaseRenewalIntervalInSecondes: 5
+
