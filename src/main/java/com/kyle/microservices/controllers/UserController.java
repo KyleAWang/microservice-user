@@ -3,6 +3,7 @@ package com.kyle.microservices.controllers;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kyle.microservices.beans.UserLogin;
+import com.kyle.microservices.beans.UserLoginRequest;
 import com.kyle.microservices.service.UserService;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,11 +29,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/user-login", method = RequestMethod.GET)
-    public ResponseEntity userLogin(@RequestParam("username") String userName, @RequestParam("password") String password) {
+    @RequestMapping(value = "/user-login", method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity userLogin(@RequestBody UserLoginRequest userLoginRequest) {
         String jsonString = "";
         try {
-            UserLogin userLogin = userService.userLogin(userName, password);
+            UserLogin userLogin = userService.userLogin(userLoginRequest.getUsername(), userLoginRequest.getPassword());
 
             ObjectMapper mapper = new ObjectMapper();
             mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
