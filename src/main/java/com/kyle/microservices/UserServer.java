@@ -2,7 +2,6 @@ package com.kyle.microservices;
 
 import com.kyle.microservices.controllers.UserController;
 import com.kyle.microservices.service.UserService;
-import org.apache.catalina.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
