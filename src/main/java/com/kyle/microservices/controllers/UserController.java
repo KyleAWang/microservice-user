@@ -4,20 +4,16 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kyle.microservices.beans.UserLogin;
 import com.kyle.microservices.beans.UserLoginRequest;
+import com.kyle.microservices.dao.UserDao;
 import com.kyle.microservices.service.UserService;
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by Kyle on 8/7/2017.
@@ -28,12 +24,16 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserDao userDao;
 
     @RequestMapping(value = "/user-login", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity userLogin(@RequestBody UserLoginRequest userLoginRequest) {
         String jsonString = "";
         try {
             UserLogin userLogin = userService.userLogin(userLoginRequest.getUsername(), userLoginRequest.getPassword());
+            logger.info("Saving userLogin...");
+            userDao.saveUserLogin(userLogin);
 
             ObjectMapper mapper = new ObjectMapper();
             mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);

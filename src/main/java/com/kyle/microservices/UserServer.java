@@ -1,11 +1,14 @@
 package com.kyle.microservices;
 
 import com.kyle.microservices.controllers.UserController;
+import com.kyle.microservices.dao.UserDao;
 import com.kyle.microservices.service.UserService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.mongodb.core.MongoClientFactoryBean;
+import org.springframework.data.mongodb.core.MongoTemplate;
 
 /**
  * Created by Kyle on 7/10/2017.
@@ -28,5 +31,17 @@ public class UserServer {
     @Bean
     public UserController userController() {
         return new UserController();
+    }
+
+    @Bean
+    public MongoClientFactoryBean mongo() {
+        MongoClientFactoryBean mongo = new MongoClientFactoryBean();
+        mongo.setHost("localhost");
+        return mongo;
+    }
+
+    @Bean
+    public UserDao UserDao() {
+        return new UserDao();
     }
 }
