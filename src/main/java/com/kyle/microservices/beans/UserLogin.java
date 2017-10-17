@@ -1,6 +1,7 @@
 package com.kyle.microservices.beans;
 
 import lombok.Data;
+import org.springframework.data.annotation.Id;
 
 import java.util.Date;
 
@@ -8,6 +9,7 @@ import java.util.Date;
  * Created by Kyle on 8/7/2017.
  */
 public @Data class UserLogin extends AbsractBean {
+    @Id
     private String userLoginId;
     private String partyId;
     private String currentPassword;
@@ -18,7 +20,7 @@ public @Data class UserLogin extends AbsractBean {
     private String lastUpdatedStamp;
     private String createdStamp;
     private String createdTxStamp;
-
+    private String password;
     private String passwordHint;
     private String isSystem;
     private String requirePasswordChange;
