@@ -4,6 +4,7 @@ import com.kyle.microservices.beans.UserLogin;
 import com.kyle.microservices.service.axis2.userLogin.UserLoginStub;
 import org.apache.axis2.AxisFault;
 import org.apache.axis2.databinding.ADBBean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.rmi.RemoteException;
@@ -15,9 +16,15 @@ import java.util.logging.Logger;
 @Service
 public class UserService {
     private Logger logger = Logger.getLogger(UserService.class.getName());
+    @Value("${business.endpoint.host}")
+    private String service_host;
+    @Value("${business.endpoint.port}")
+    private String service_port;
 
     public UserLogin userLogin(String userName, String password) throws Exception {
-        UserLoginStub stub = new UserLoginStub(); //the default implementation should point to the right endpoint
+        String service_endpoint = "http://"+service_host+":"+service_port+"/webtools/control/SOAPService";
+
+        UserLoginStub stub = new UserLoginStub(service_endpoint); //the default implementation should point to the right endpoint
 
         UserLoginStub.UserLogin userLogin4 =
                 (UserLoginStub.UserLogin) getTypeObject(UserLoginStub.UserLogin.class);

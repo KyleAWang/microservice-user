@@ -1,6 +1,9 @@
 spring:
   application:
     name: user-service
+  data:
+    mongodb:
+      host: localhost
 
 
 #error:
@@ -19,3 +22,8 @@ eureka:
     instance:
       leaseRenewalIntervalInSecondes: 5
 
+
+business:
+  endpoint:
+    host: localhost
+    port: 8080
