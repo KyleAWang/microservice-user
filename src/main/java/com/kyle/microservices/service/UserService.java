@@ -14,16 +14,10 @@ import java.util.logging.Logger;
  * Created by Kyle on 8/7/2017.
  */
 @Service
-public class UserService {
+public class UserService extends AbstractBusinessService{
     private Logger logger = Logger.getLogger(UserService.class.getName());
-    @Value("${business.endpoint.host}")
-    private String service_host;
-    @Value("${business.endpoint.port}")
-    private String service_port;
 
     public UserLogin userLogin(String userName, String password) throws Exception {
-        String service_endpoint = "http://"+service_host+":"+service_port+"/webtools/control/SOAPService";
-
         UserLoginStub stub = new UserLoginStub(service_endpoint); //the default implementation should point to the right endpoint
 
         UserLoginStub.UserLogin userLogin4 =

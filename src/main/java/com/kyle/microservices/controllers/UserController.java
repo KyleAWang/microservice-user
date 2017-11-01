@@ -34,12 +34,17 @@ public class UserController {
     private UserDao userDao;
 
     @ApiOperation(value = "User login api", response = UserLogin.class)
-    @RequestMapping(value = "/userLogin", method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping(value = "/userLogin", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
     public ResponseEntity<String> userLogin(@RequestBody UserLoginRequest userLoginRequest) {
+        final String methodName = "userLogin";
+        logger.info(methodName + " starts...");
         String jsonString = "";
         try {
             UserLogin userLogin = userService.userLogin(userLoginRequest.getUsername(), userLoginRequest.getPassword());
             logger.info("Saving userLogin...");
+
+            //todo: will store encrypted password later
+            userLogin.setPassword(userLoginRequest.getPassword());
 
             userDao.saveUserLogin(userLogin);
 
@@ -49,9 +54,11 @@ public class UserController {
 
         } catch (Exception e) {
             logger.error("login error", e);
+            logger.info(methodName + " ends...");
             return new ResponseEntity<String>("error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+        logger.info(methodName + " ends...");
         return new ResponseEntity<String>(jsonString, HttpStatus.OK);
     }
 
@@ -60,8 +67,10 @@ public class UserController {
             @ApiResponse(code = 200, message = "Successfully retrieved user info"),
             @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
     })
-    @RequestMapping(value = "/userLogin", params = {"user"}, method = RequestMethod.GET)
+    @RequestMapping(value = "/userLogin", params = {"user"}, method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<String> getUserLogin(@RequestParam("user") String user) {
+        final String methodName = "getUserLogin";
+        logger.info(methodName + " starts...");
         UserLogin userLogin = null;
         String jsonString = "";
         if (StringUtils.isNotEmpty(user)) {
@@ -73,11 +82,14 @@ public class UserController {
                 jsonString = mapper.writeValueAsString(userLogin);
             } catch (JsonProcessingException e) {
                 logger.error("login error", e);
+                logger.info(methodName + " ends...");
                 return new ResponseEntity("error", HttpStatus.INTERNAL_SERVER_ERROR);
             }
         } else {
+            logger.info(methodName + " ends...");
             return new ResponseEntity("error", HttpStatus.NOT_FOUND);
         }
+        logger.info(methodName + " ends...");
         return new ResponseEntity<String>(jsonString, HttpStatus.OK);
 
     }

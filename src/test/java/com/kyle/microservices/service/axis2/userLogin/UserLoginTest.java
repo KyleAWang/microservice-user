@@ -1,4 +1,13 @@
-package com.kyle.microservices.service.axis2.userLogin; /**
+package com.kyle.microservices.service.axis2.userLogin;
+
+import com.kyle.microservices.UserServer;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+
+/**
  * UserLoginTest.java
  *
  * This file was auto-generated from WSDL
@@ -10,11 +19,17 @@ package com.kyle.microservices.service.axis2.userLogin; /**
  *  UserLoginTest Junit test case
  */
 public class UserLoginTest extends junit.framework.TestCase {
+    @Value("${business.endpoint.host}")
+    private String service_host;
+    @Value("${business.endpoint.port}")
+    private String service_port;
+    private static final String service_endpoint = "http://192.168.20.9:8080/webtools/control/SOAPService";
+
     /**
      * Auto generated test method
      */
     public void testuserLogin() throws java.lang.Exception {
-        com.kyle.microservices.service.axis2.userLogin.UserLoginStub stub = new com.kyle.microservices.service.axis2.userLogin.UserLoginStub(); //the default implementation should point to the right endpoint
+        com.kyle.microservices.service.axis2.userLogin.UserLoginStub stub = new com.kyle.microservices.service.axis2.userLogin.UserLoginStub(service_endpoint); //the default implementation should point to the right endpoint
 
         com.kyle.microservices.service.axis2.userLogin.UserLoginStub.UserLogin userLogin4 =
                 (com.kyle.microservices.service.axis2.userLogin.UserLoginStub.UserLogin) getTestObject(com.kyle.microservices.service.axis2.userLogin.UserLoginStub.UserLogin.class);
