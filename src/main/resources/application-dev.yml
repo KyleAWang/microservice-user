@@ -1,9 +1,9 @@
 business:
   endpoint:
-    host: 192.168.20.9
+    host: 192.168.1.140
     port: 8080
 
 spring:
   data:
     mongodb:
-      host: 192.168.20.9
+      host: 192.168.1.140

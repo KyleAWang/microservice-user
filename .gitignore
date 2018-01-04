@@ -58,6 +58,9 @@ hs_err_pid*
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 
+# sonarlint
+.idea/sonarlint/
+
 # JIRA plugin
 atlassian-ide-plugin.xml
 

@@ -3,7 +3,7 @@ spring:
     name: user-service
   data:
     mongodb:
-      host: 192.168.20.9
+      host: 192.168.1.140
 
 
 #error:
@@ -18,6 +18,6 @@ server:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:1111/eureka/
+      defaultZone: http://192.168.1.31:1111/eureka/
     instance:
       leaseRenewalIntervalInSecondes: 5

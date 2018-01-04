@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.rmi.RemoteException;
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 /**
@@ -61,6 +62,7 @@ public class UserService extends AbstractBusinessService{
         UserLoginStub.MapEntry[] entries = userLoginResponse.getMapHashMap().getMapEntry();
 
         UserLogin userLogin = new UserLogin();
+
         for(UserLoginStub.MapEntry entry : entries) {
             String key = entry.getMapKey().getStdString().getValue();
             UserLoginStub.MapValue value = entry.getMapValue();
